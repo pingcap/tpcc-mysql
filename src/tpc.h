@@ -9,23 +9,22 @@ extern "C" {
 
 /*
  * correct values
- */
 #define MAXITEMS      100000 
 #define CUST_PER_DIST 3000 
 #define DIST_PER_WARE 10 
 #define ORD_PER_DIST  3000
+ */
 /*
  */
 
 /* 
  * small values
-
+ */ 
 #define MAXITEMS 	1000
 #define CUST_PER_DIST 	30
 #define DIST_PER_WARE	3
 #define ORD_PER_DIST	30
 
- */ 
 
 /* definitions for new order transaction */
 #define MAX_NUM_ITEMS 15
