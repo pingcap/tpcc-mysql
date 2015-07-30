@@ -693,7 +693,7 @@ int thread_main (thread_arg* arg)
   }
 
   /* Prepare ALL of SQLs */
-  if( mysql_stmt_prepare(stmt[t_num][0], "SELECT customer.c_discount, customer.c_last, customer.c_credit, warehouse.w_tax FROM customer, warehouse WHERE warehouse.w_id=? AND customer.c_w_id=warehouse.w_id AND customer.c_d_id=? AND customer.c_id=?", 128) ) goto sqlerr;
+  if( mysql_stmt_prepare(stmt[t_num][0], "SELECT customer.c_discount, customer.c_last, customer.c_credit, warehouse.w_tax FROM customer, warehouse WHERE warehouse.w_id=? AND customer.c_w_id=warehouse.w_id AND customer.c_d_id=? AND customer.c_id=?", 204) ) goto sqlerr;
   if( mysql_stmt_prepare(stmt[t_num][1], "SELECT d_next_o_id, d_tax FROM district WHERE d_id = ? AND d_w_id = ? ", 80) ) goto sqlerr;
   if( mysql_stmt_prepare(stmt[t_num][2], "UPDATE district SET d_next_o_id = ? + 1 WHERE d_id = ? AND d_w_id = ?", 69) ) goto sqlerr;
   if( mysql_stmt_prepare(stmt[t_num][3], "INSERT INTO orders (o_id, o_d_id, o_w_id, o_c_id, o_entry_d, o_ol_cnt, o_all_local) VALUES(?, ?, ?, ?, ?, ?, ?)", 111) ) goto sqlerr;
@@ -707,7 +707,7 @@ int thread_main (thread_arg* arg)
   if( mysql_stmt_prepare(stmt[t_num][11], "UPDATE district SET d_ytd = d_ytd + ? WHERE d_w_id = ? AND d_id = ?", 67) ) goto sqlerr;
   if( mysql_stmt_prepare(stmt[t_num][12], "SELECT d_street_1, d_street_2, d_city, d_state, d_zip, d_name FROM district WHERE d_w_id = ? AND d_id = ?", 105) ) goto sqlerr;
   if( mysql_stmt_prepare(stmt[t_num][13], "SELECT count(c_id) FROM customer WHERE c_w_id = ? AND c_d_id = ? AND c_last = ?", 79) ) goto sqlerr;
-  if( mysql_stmt_prepare(stmt[t_num][14], "SELECT c_id FROM customer WHERE c_w_id = ? AND c_d_id = ? AND c_last = ? ORDER BY c_first", 89) ) goto sqlerr;
+  if( mysql_stmt_prepare(stmt[t_num][14], "SELECT c_id, c_first FROM customer WHERE c_w_id = ? AND c_d_id = ? AND c_last = ? ORDER BY c_first", 98) ) goto sqlerr;
   if( mysql_stmt_prepare(stmt[t_num][15], "SELECT c_first, c_middle, c_last, c_street_1, c_street_2, c_city, c_state, c_zip, c_phone, c_credit, c_credit_lim, c_discount, c_balance, c_since FROM customer WHERE c_w_id = ? AND c_d_id = ? AND c_id = ? ", 215) ) goto sqlerr;
   if( mysql_stmt_prepare(stmt[t_num][16], "SELECT c_data FROM customer WHERE c_w_id = ? AND c_d_id = ? AND c_id = ?", 72) ) goto sqlerr;
   if( mysql_stmt_prepare(stmt[t_num][17], "UPDATE customer SET c_balance = ?, c_data = ? WHERE c_w_id = ? AND c_d_id = ? AND c_id = ?", 90) ) goto sqlerr;
