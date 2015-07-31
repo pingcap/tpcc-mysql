@@ -436,6 +436,7 @@ static int do_slev (int t_num)
     for (i = 0; i < MAX_RETRY; i++) {
       ret = slev(t_num, w_id, d_id, level);
       clk2 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf2 );
+      fprintf(stderr,"[ret] %d\n", ret);
 
       if(ret){
 
@@ -456,6 +457,7 @@ static int do_slev (int t_num)
 	return (1); /* end */
       }else{
 
+        fprintf(stderr,"retry %d\n", retry[4]);
 	if(counting_on){
 	  retry[4]++;
 	  retry2[4][t_num]++;

@@ -20,7 +20,7 @@ extern "C" {
 /* 
  * small values
  */ 
-#define MAXITEMS 	1000
+#define MAXITEMS 	20
 #define CUST_PER_DIST 	30
 #define DIST_PER_WARE	3
 #define ORD_PER_DIST	30

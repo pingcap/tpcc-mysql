@@ -129,10 +129,19 @@ int neword( int t_num,
 	param[1].buffer = &d_id;
 	param[2].buffer_type = MYSQL_TYPE_LONG;
 	param[2].buffer = &c_id;
-	if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-	if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+	if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+		fprintf(stderr, "133 newword bind error");
+		goto sqlerr;
+	}
+	if( mysql_stmt_execute(mysql_stmt) ) {
+		fprintf(stderr, "137 newword bind error");
+		goto sqlerr;
+	}
 
-	if( mysql_stmt_store_result(mysql_stmt) ) goto sqlerr;
+	if( mysql_stmt_store_result(mysql_stmt) ) {
+		fprintf(stderr, "142 newword bind error");
+		goto sqlerr;
+	}
 	memset(column, 0, sizeof(MYSQL_BIND) * 4); /* initialize */
 	column[0].buffer_type = MYSQL_TYPE_FLOAT;
 	column[0].buffer = &c_discount;
@@ -144,7 +153,10 @@ int neword( int t_num,
 	column[2].buffer_length = sizeof(c_credit);
 	column[3].buffer_type = MYSQL_TYPE_FLOAT;
 	column[3].buffer = &w_tax;
-	if( mysql_stmt_bind_result(mysql_stmt, column) ) goto sqlerr;
+	if( mysql_stmt_bind_result(mysql_stmt, column) ) {
+		fprintf(stderr, "157 newword bind error");
+		goto sqlerr;
+	}
 	switch( mysql_stmt_fetch(mysql_stmt) ) {
 	    case 0: //SUCCESS
 	    case MYSQL_DATA_TRUNCATED:
@@ -153,6 +165,7 @@ int neword( int t_num,
 	    case MYSQL_NO_DATA: //NO MORE DATA
 	    default:
 		mysql_stmt_free_result(mysql_stmt);
+		fprintf(stderr, "168 newword bind error");
 		goto sqlerr;
 	}
 	mysql_stmt_free_result(mysql_stmt);
@@ -175,16 +188,28 @@ int neword( int t_num,
 	param[0].buffer = &d_id;
 	param[1].buffer_type = MYSQL_TYPE_LONG;
 	param[1].buffer = &w_id;
-	if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-	if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+	if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+		fprintf(stderr, "192 newword bind error");
+		goto sqlerr;
+	}
+	if( mysql_stmt_execute(mysql_stmt) ) {
+		fprintf(stderr, "195 newword bind error");
+		goto sqlerr;
+	}
 
-	if( mysql_stmt_store_result(mysql_stmt) ) goto sqlerr;
+	if( mysql_stmt_store_result(mysql_stmt) ) {
+		fprintf(stderr, "201 newword bind error");
+		goto sqlerr;
+	}
 	memset(column, 0, sizeof(MYSQL_BIND) * 2); /* initialize */
 	column[0].buffer_type = MYSQL_TYPE_LONG;
 	column[0].buffer = &d_next_o_id;
 	column[1].buffer_type = MYSQL_TYPE_FLOAT;
 	column[1].buffer = &d_tax;
-	if( mysql_stmt_bind_result(mysql_stmt, column) ) goto sqlerr;
+	if( mysql_stmt_bind_result(mysql_stmt, column) ) {
+		fprintf(stderr, "210 newword bind error");
+		goto sqlerr;
+	}
 	switch( mysql_stmt_fetch(mysql_stmt) ) {
 	    case 0: //SUCCESS
 	    case MYSQL_DATA_TRUNCATED:
@@ -193,6 +218,7 @@ int neword( int t_num,
 	    case MYSQL_NO_DATA: //NO MORE DATA
 	    default:
 		mysql_stmt_free_result(mysql_stmt);
+		fprintf(stderr, "221 newword bind error");
 		goto sqlerr;
 	}
 	mysql_stmt_free_result(mysql_stmt);
@@ -211,8 +237,14 @@ int neword( int t_num,
 	param[1].buffer = &d_id;
 	param[2].buffer_type = MYSQL_TYPE_LONG;
 	param[2].buffer = &w_id;
-	if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-	if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+	if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+		fprintf(stderr, "240 newword bind error");
+		goto sqlerr;
+	}
+	if( mysql_stmt_execute(mysql_stmt) ) {
+		fprintf(stderr, "245 newword bind error");
+		goto sqlerr;
+	}
 
 	o_id = d_next_o_id;
 
@@ -244,8 +276,14 @@ int neword( int t_num,
 	param[5].buffer = &o_ol_cnt;
 	param[6].buffer_type = MYSQL_TYPE_LONG;
 	param[6].buffer = &o_all_local;
-	if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-	if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+	if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+		fprintf(stderr, "280 newword bind error");
+		goto sqlerr;
+	}
+	if( mysql_stmt_execute(mysql_stmt) ) {
+		fprintf(stderr, "284 newword bind error");
+		goto sqlerr;
+	}
 
 
 #ifdef DEBUG
@@ -264,8 +302,14 @@ int neword( int t_num,
 	param[1].buffer = &d_id;
 	param[2].buffer_type = MYSQL_TYPE_LONG;
 	param[2].buffer = &w_id;
-	if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-	if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+	if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+		fprintf(stderr, "306 newword bind error");
+		goto sqlerr;
+	}
+	if( mysql_stmt_execute(mysql_stmt) ) {
+		fprintf(stderr, "310 newword bind error");
+		goto sqlerr;
+	}
 
 	/* sort orders to avoid DeadLock */
 	for (i = 0; i < o_ol_cnt; i++) {
@@ -304,10 +348,19 @@ int neword( int t_num,
 		memset(param, 0, sizeof(MYSQL_BIND) * 1); /* initialize */
 		param[0].buffer_type = MYSQL_TYPE_LONG;
 		param[0].buffer = &ol_i_id;
-		if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-		if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+		if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
+		if( mysql_stmt_execute(mysql_stmt) ) {
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
 
-		if( mysql_stmt_store_result(mysql_stmt) ) goto sqlerr;
+		if( mysql_stmt_store_result(mysql_stmt) ) {
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
 		memset(column, 0, sizeof(MYSQL_BIND) * 3); /* initialize */
 		column[0].buffer_type = MYSQL_TYPE_FLOAT;
 		column[0].buffer = &i_price;
@@ -317,7 +370,10 @@ int neword( int t_num,
 		column[2].buffer_type = MYSQL_TYPE_STRING;
 		column[2].buffer = i_data;
 		column[2].buffer_length = sizeof(i_data);
-		if( mysql_stmt_bind_result(mysql_stmt, column) ) goto sqlerr;
+		if( mysql_stmt_bind_result(mysql_stmt, column) ) {
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
 		switch( mysql_stmt_fetch(mysql_stmt) ) {
 		    case 0: //SUCCESS
 		    case MYSQL_DATA_TRUNCATED:
@@ -330,6 +386,7 @@ int neword( int t_num,
 		    case 1: //ERROR
 		    default:
 			mysql_stmt_free_result(mysql_stmt);
+			fprintf(stderr, "%d newword", __LINE__);
 			goto sqlerr;
 		}
 		mysql_stmt_free_result(mysql_stmt);
@@ -362,10 +419,20 @@ int neword( int t_num,
 		param[0].buffer = &ol_i_id;
 		param[1].buffer_type = MYSQL_TYPE_LONG;
 		param[1].buffer = &ol_supply_w_id;
-		if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-		if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+		if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
+		if( mysql_stmt_execute(mysql_stmt) ) {
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
 
-		if( mysql_stmt_store_result(mysql_stmt) ) goto sqlerr;
+		if( mysql_stmt_store_result(mysql_stmt) ) {
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
+
 		memset(column, 0, sizeof(MYSQL_BIND) * 12); /* initialize */
 		column[0].buffer_type = MYSQL_TYPE_LONG;
 		column[0].buffer = &s_quantity;
@@ -402,14 +469,19 @@ int neword( int t_num,
 		column[11].buffer_type = MYSQL_TYPE_STRING;
 		column[11].buffer = s_dist_10;
 		column[11].buffer_length = sizeof(s_dist_10);
-		if( mysql_stmt_bind_result(mysql_stmt, column) ) goto sqlerr;
-		switch( mysql_stmt_fetch(mysql_stmt) ) {
+		if( mysql_stmt_bind_result(mysql_stmt, column) ) {
+			fprintf(stderr, "%d newword\n", __LINE__);
+			goto sqlerr;
+		}
+		int fetch_ret = mysql_stmt_fetch(mysql_stmt);
+		switch(fetch_ret) {
 		    case 0: //SUCCESS
 			break;
 		    case 1: //ERROR
 		    case MYSQL_NO_DATA: //NO MORE DATA
 		    default:
 			mysql_stmt_free_result(mysql_stmt);
+			fprintf(stderr, "%d newword %d \n", __LINE__, fetch_ret);
 			goto sqlerr;
 		}
 		mysql_stmt_free_result(mysql_stmt);
@@ -448,8 +520,16 @@ int neword( int t_num,
 		param[1].buffer = &ol_i_id;
 		param[2].buffer_type = MYSQL_TYPE_LONG;
 		param[2].buffer = &ol_supply_w_id;
-		if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-		if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+		if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+			fprintf(stderr, "453 newword bind error");
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
+		if( mysql_stmt_execute(mysql_stmt) ) {
+			fprintf(stderr, "458 newword execute error");
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
 
 
 		ol_amount = ol_quantity * i_price * (1 + w_tax + d_tax) * (1 - c_discount);
@@ -490,8 +570,16 @@ int neword( int t_num,
 		param[8].buffer_type = MYSQL_TYPE_STRING;
 		param[8].buffer = ol_dist_info;
 		param[8].buffer_length = strlen(ol_dist_info);
-		if( mysql_stmt_bind_param(mysql_stmt, param) ) goto sqlerr;
-		if( mysql_stmt_execute(mysql_stmt) ) goto sqlerr;
+		if( mysql_stmt_bind_param(mysql_stmt, param) ) {
+			fprintf(stderr, "newword bind error");
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
+		if( mysql_stmt_execute(mysql_stmt) ) {
+			fprintf(stderr, "newword execute error");
+			fprintf(stderr, "%d newword", __LINE__);
+			goto sqlerr;
+		}
 
 
 	}			/* End Order Lines */
@@ -502,7 +590,11 @@ int neword( int t_num,
 #endif
 
 	/*EXEC_SQL COMMIT WORK;*/
-	if( mysql_commit(ctx[t_num]) ) goto sqlerr;
+	if( mysql_commit(ctx[t_num]) ) {
+		fprintf(stderr, "newword commit error");
+			fprintf(stderr, "%d newword", __LINE__);
+		goto sqlerr;
+	}
 	clk1 = clock_gettime(CLOCK_REALTIME, &tbuf1 );
 	if (ftrx_file) {
 		fprintf(ftrx_file,"t_num: %d finish: %lu %lu start: %lu %lu\n",t_num, tbuf1.tv_sec, tbuf1.tv_nsec,
@@ -519,7 +611,7 @@ invaliditem:
 	return (1); /* OK? */
 
 sqlerr:
-	fprintf(stderr,"neword %d:%d\n",t_num,proceed);
+	fprintf(stderr,"neword error %d:%d\n",t_num,proceed);
       	error(ctx[t_num],mysql_stmt);
 	/*EXEC SQL WHENEVER SQLERROR GOTO sqlerrerr;*/
 	/*EXEC_SQL ROLLBACK WORK;*/
