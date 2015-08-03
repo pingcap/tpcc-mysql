@@ -231,7 +231,7 @@ static int do_payment (int t_num)
     current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = payment(t_num, w_id, d_id, byname, c_w_id, c_d_id, c_id, c_last, h_amount);
-      current_utc_tim(&tbuf1);
+      current_utc_tim(&tbuf2);
 
       if(ret){
 
@@ -302,7 +302,7 @@ static int do_ordstat (int t_num)
     current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = ordstat(t_num, w_id, d_id, byname, c_id, c_last);
-      current_utc_tim(&tbuf1);
+      current_utc_tim(&tbuf2);
 
       if(ret){
 
@@ -366,7 +366,7 @@ static int do_delivery (int t_num)
     current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = delivery(t_num, w_id, o_carrier_id);
-      current_utc_tim(&tbuf1);
+      current_utc_tim(&tbuf2);
 
       if(ret){
 
@@ -430,7 +430,7 @@ static int do_slev (int t_num)
     current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = slev(t_num, w_id, d_id, level);
-      current_utc_tim(&tbuf1);
+      current_utc_tim(&tbuf2);
       fprintf(stderr,"[ret] %d\n", ret);
 
       if(ret){

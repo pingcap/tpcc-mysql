@@ -1,1 +1,1 @@
-create database tpcc1000;
+create database if not exists tpcc1000;
