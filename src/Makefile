@@ -2,9 +2,13 @@
 # "make all" to build necessary executables.
 #
 
+uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
 
+LIBS=		`mysql_config --libs_r`
 
-LIBS=		`mysql_config --libs_r` -lrt
+ifeq ($(uname_S),Linux)
+	LIBS += -lrt
+endif
 
 INC=		-I. `mysql_config --include`
 
@@ -13,7 +17,7 @@ INC=		-I. `mysql_config --include`
 CFLAGS=		-w -O2 -g
 
 TRANSACTIONS=	neword.o payment.o ordstat.o delivery.o slev.o
-OBJS=		main.o spt_proc.o driver.o support.o sequence.o rthist.o $(TRANSACTIONS)
+OBJS=		main.o spt_proc.o driver.o support.o sequence.o rthist.o $(TRANSACTIONS) current_utc_time.o
 
 .SUFFIXES:
 .SUFFIXES: .o .c

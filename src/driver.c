@@ -11,6 +11,7 @@
 #include "trans_if.h" /* prototypes for transacation interface calls */
 #include "sequence.h"
 #include "rthist.h"
+#include "current_utc_time.h"
 
 static int other_ware (int home_ware);
 static int do_neword (int t_num);
@@ -90,7 +91,6 @@ static int do_neword (int t_num)
 {
     int c_num;
     int i,ret;
-    clock_t clk1,clk2;
     double rt;
     struct timespec tbuf1;
     struct timespec tbuf2;
@@ -131,10 +131,10 @@ static int do_neword (int t_num)
 	qty[i] = RandomNumber(1, 10);
     }
 
-    clk1 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf1 );
+    current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = neword(t_num, w_id, d_id, c_id, ol_cnt, all_local, itemid, supware, qty);
-      clk2 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf2 );
+      current_utc_tim(&tbuf2);
 
       if(ret){
 
@@ -198,7 +198,6 @@ static int do_payment (int t_num)
 {
     int c_num;
     int byname,i,ret;
-    clock_t clk1,clk2;
     double rt;
     struct timespec tbuf1;
     struct timespec tbuf2;
@@ -229,10 +228,10 @@ static int do_payment (int t_num)
         c_d_id = RandomNumber(1, DIST_PER_WARE);
     }
 
-    clk1 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf1 );
+    current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = payment(t_num, w_id, d_id, byname, c_w_id, c_d_id, c_id, c_last, h_amount);
-      clk2 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf2 );
+      current_utc_tim(&tbuf1);
 
       if(ret){
 
@@ -278,7 +277,6 @@ static int do_ordstat (int t_num)
 {
     int c_num;
     int byname,i,ret;
-    clock_t clk1,clk2;
     double rt;
     struct timespec tbuf1;
     struct timespec tbuf2;
@@ -301,10 +299,10 @@ static int do_ordstat (int t_num)
         byname = 0; /* select by customer id */
     }
 
-      clk1 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf1 );
+    current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = ordstat(t_num, w_id, d_id, byname, c_id, c_last);
-      clk2 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf2 );
+      current_utc_tim(&tbuf1);
 
       if(ret){
 
@@ -351,7 +349,6 @@ static int do_delivery (int t_num)
 {
     int c_num;
     int i,ret;
-    clock_t clk1,clk2;
     double rt;
     struct timespec tbuf1;
     struct timespec tbuf2;
@@ -366,10 +363,10 @@ static int do_delivery (int t_num)
     }
     o_carrier_id = RandomNumber(1, 10);
 
-      clk1 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf1 );
+    current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = delivery(t_num, w_id, o_carrier_id);
-      clk2 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf2 );
+      current_utc_tim(&tbuf1);
 
       if(ret){
 
@@ -416,7 +413,6 @@ static int do_slev (int t_num)
 {
     int c_num;
     int i,ret;
-    clock_t clk1,clk2;
     double rt;
     struct timespec tbuf1;
     struct timespec tbuf2;
@@ -430,12 +426,11 @@ static int do_slev (int t_num)
 			    (num_ware * (c_num + 1))/num_node);
     }
     d_id = RandomNumber(1, DIST_PER_WARE); 
-    level = RandomNumber(10, 20); 
-
-      clk1 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf1 );
+    level = RandomNumber(10, 20);
+    current_utc_tim(&tbuf1);
     for (i = 0; i < MAX_RETRY; i++) {
       ret = slev(t_num, w_id, d_id, level);
-      clk2 = clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tbuf2 );
+      current_utc_tim(&tbuf1);
       fprintf(stderr,"[ret] %d\n", ret);
 
       if(ret){
